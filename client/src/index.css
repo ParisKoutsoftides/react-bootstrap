@@ -36,6 +36,11 @@ header {
 
 .grayContainer {
   background-color: #777;
+  padding: 3rem;
+}
+
+.navyContainer {
+  background-color: rgb(50, 94, 168);
   padding: 5rem;
 }
 
