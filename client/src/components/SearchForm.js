@@ -1,112 +1,84 @@
-import React from 'react';
+import React, {Component} from 'react';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
-import Col from 'react-bootstrap/Col'
+import Col from 'react-bootstrap/Col';
+import Row from 'react-bootstrap/Row';
 
 
-const Main =    () => {
-  return (
-    <Form>
+class SearchForm extends Component {
+    constructor() {
+      super();
+      this.state = {
+        county: '',
+        minPrice: '',
+        maxPrice: '',
+        buildingType: 'Villa',
+        orderByOption: 'ASC'
+      };
+    }
+
+    onChange = (e) => {
+      this.setState({ [e.target.name]: e.target.value });
+    }
+
+    handleSubmit = (e) => {
+        e.preventDefault();
+        
+        const { country, minPrice, maxPrice, buildingType} = this.state;
+
+        window.location.assign("/searchProperties/minPrice=" + minPrice +"&maxPrice=" +maxPrice + "&buildingType="+buildingType);
+
+      }
+
+
+
+render(){
+    const { county, minPrice, maxPrice, buildingType } = this.state;
+    return(
+    <Form onSubmit={this.handleSubmit}>
         <div className="row justify-content-center">
         <Form.Group controlId="searchForm col-sm">
-            <Form.Control type="email" placeholder="Enter area, town or city.." />
+            <Form.Control type="text" placeholder="Enter county.." name="county" value={county} onChange={this.onChange}/>
             <Form.Text className="">
             </Form.Text>
         </Form.Group>
-        {/* <Form.Group controlId="searchForm.noOfBedrooms">
-            <Form.Row>
-                <Col>
-                    <Form.Label>No. of Bedrooms</Form.Label>
-                </Col>
-                <Col>
-                    <Form.Control as="select">
-                    <option>1</option>
-                    <option>2</option>
-                    <option>3</option>
-                    <option>4</option>
-                    <option>5+</option>
-                    </Form.Control>
-                </Col>
-            </Form.Row>
-        </Form.Group>
-        <Form.Group controlId="searchForm.noOfBedrooms">
-            <Form.Row>
-                <Col>
-                    <Form.Label>No. of Bathrooms</Form.Label>
-                </Col>
-                <Col>
-                    <Form.Control as="select">
-                    <option>1</option>
-                    <option>2</option>
-                    <option>3</option>
-                    <option>4</option>
-                    <option>5+</option>
-                    </Form.Control>
-                </Col>
-            </Form.Row>
-        </Form.Group> */}
         <Form.Group controlId="searchForm.minPrice">
-            <Form.Row>
+            <Row>
                 <Col>
-                    <Form.Label className="" >Minimum Price</Form.Label>
+                    <Form.Label>Minimum Price</Form.Label>
                 </Col>
                 <Col>
-                    <Form.Control as="select">
-                        <option value="" defaultValue>Please Select...</option>
-                        <option>50,000</option>
-                        <option>60,000</option>
-                        <option>70,000</option>
-                        <option>80,000</option>
-                        <option>100,000</option>
-                        <option>120,000</option>
-                        <option>140,000</option>
-                        <option>160,000</option>
-                        <option>180,000</option>
-                        <option>200,000</option>
-                        <option>240,000</option>
-                        <option>260,000</option>
-                        <option>280,000</option>
-                        <option>300,000</option>
-                        <option>340,000</option>
-                        <option>380,000</option>
-                    </Form.Control>
+                    <Form.Control type="text" placeholder="Enter min price.." name="minPrice" value={minPrice} onChange={this.onChange}/>
+                    <Form.Text className=""></Form.Text>
                 </Col>
-            </Form.Row>
+            </Row>
         </Form.Group>
         <Form.Group controlId="searchForm.maxPrice">
-            <Form.Row>
+            <Row>
                 <Col>
                     <Form.Label>Maximum Price</Form.Label>
                 </Col>
                 <Col>
-                    <Form.Control as="select">
-                        <option value="" defaultValue>Please Select...</option>
-                        <option>60,000</option>
-                        <option>70,000</option>
-                        <option>80,000</option>
-                        <option>100,000</option>
-                        <option>120,000</option>
-                        <option>140,000</option>
-                        <option>160,000</option>
-                        <option>180,000</option>
-                        <option>200,000</option>
-                        <option>240,000</option>
-                        <option>260,000</option>
-                        <option>280,000</option>
-                        <option>300,000</option>
-                        <option>340,000</option>
-                        <option>380,000</option>
-                        <option>400,000</option>
-                    </Form.Control>
+                    <Form.Control type="text" placeholder="Enter max price.." name="maxPrice" value={maxPrice} onChange={this.onChange}/>
+                    <Form.Text className=""></Form.Text>
                 </Col>
-            </Form.Row>
+            </Row>
+        </Form.Group>
+        <Form.Group controlId="exampleForm.buildingTypeSelect">
+            <Form.Label>Select building type</Form.Label>
+            <Form.Control as="select" name="buildingType" value={buildingType} onChange={this.onChange}>
+            <option>Villa</option>
+            <option>Apartment</option>
+            </Form.Control>
         </Form.Group>
         </div>
         <Button variant="primary btn-large" type="submit">
             Search
         </Button>
     </Form>
-  );
+    );
+}
 }
 
-export default Main;
+
+export default SearchForm;

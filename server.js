@@ -1,6 +1,6 @@
 const express = require('express');
 const app = express();
-var cors = require('cors')
+const cors = require('cors')
 const port = process.env.PORT || 5000;
 const db = require('./queries')
 
@@ -17,3 +17,5 @@ app.get('/express_backend', (req, res) => {
 app.get('/properties', db.getProperties);
 
 app.get('/properties/:id', db.getPropertyById);
+
+app.get('/searchProperties', db.getPropertiesBySearch);

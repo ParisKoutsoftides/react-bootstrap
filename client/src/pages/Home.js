@@ -1,5 +1,4 @@
 import React from 'react';
-import logo from '../logo.svg';
 import '../App.css';
 import SearchForm from '../components/SearchForm.js';
 
@@ -13,11 +12,6 @@ const Home = () => (
             <SearchForm/>
         </div>
     </header>
-    {/* <div className="grayContainer">
-        <div className="container searchContainer">
-            <SearchForm/>
-        </div>
-    </div> */}
     <div className="grayContainer">
         <div className="container servicesContainer">
             <div className="row">

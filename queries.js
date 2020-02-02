@@ -19,7 +19,6 @@ const getProperties = (request, response) => {
 
   const getPropertyById = (request, response) => {
     const id = parseInt(request.params.id)
-  
     pool.query('SELECT * FROM properties WHERE property_id = $1', [id], (error, results) => {
       if (error) {
         throw error
@@ -28,8 +27,21 @@ const getProperties = (request, response) => {
     })
   }
 
+  const getPropertiesBySearch = (request, response) => {
+    const maxPrice = parseInt(request.query.maxPrice);
+    const minPrice = parseInt(request.query.minPrice);
+    const buildingType = request.query.buildingType;
+    pool.query('SELECT * FROM properties WHERE price BETWEEN $1 AND $2 AND building_type = $3;', [minPrice, maxPrice, buildingType], (error, results) => {
+      if (error) {
+        throw error;
+      }
+      response.status(200).json(results.rows)
+    })
+  }
+
 
   module.exports = {
     getProperties,
-    getPropertyById
+    getPropertyById,
+    getPropertiesBySearch
   }
