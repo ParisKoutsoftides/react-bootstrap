@@ -22,11 +22,8 @@ class SearchForm extends Component {
 
     handleSubmit = (e) => {
         e.preventDefault();
-        
         const { district, minPrice, maxPrice, buildingType} = this.state;
-
         window.location.assign("/searchProperties/district=" + district +"&minPrice=" + minPrice +"&maxPrice=" +maxPrice + "&buildingType="+buildingType);
-
       }
 
 

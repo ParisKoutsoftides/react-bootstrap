@@ -1,4 +1,6 @@
-const Pool = require('pg').Pool
+const jwt = require('jsonwebtoken');
+const bcrypt = require('bcrypt');
+const Pool = require('pg').Pool;
 const pool = new Pool({
   user: 'postgres',
   host: 'localhost',
@@ -41,6 +43,62 @@ const getProperties = (request, response) => {
     })
   };
 
+const _isCorrectPassword = function(password, hashedPassword,callback){
+  console.log("PASSOWRD IS:::" + password);
+  console.log("HASHED PASSWORD IS:::" + hashedPassword);
+    bcrypt.compare(password, hashedPassword, function(err, same) {
+      if (err) {
+        callback(err);
+      } else {
+        callback(err, same);
+      }
+    });
+  }
+const authenticate = (req, res) => {
+    const username = req.body.username;
+    const password = req.body.password;
+    console.log("USERNAME IS:::" + username);
+    pool.query('SELECT * FROM users WHERE username = $1;', [username], (err, results) => {
+      if (err) {
+        console.error(err);
+        res.status(500)
+          .json({
+          error: 'Internal error please try again'
+        });
+      } else if (results.rowCount === 0) {
+        res.status(401)
+          .json({
+            error: 'Incorrect email or password'
+          });
+      } else {
+        _isCorrectPassword(password, results.rows[0].password,function(err, same) {
+          if (err) {
+            res.status(500)
+              .json({
+                error: 'Internal error please try again'
+            });
+          } else if (!same) {
+            res.status(401)
+              .json({
+                error: 'Incorrect email or password'
+            });
+          } else {
+            // Issue token
+            const payload = { username };
+            const token = jwt.sign(payload, 'tempSecret1234');
+            res.cookie('token', token, { httpOnly: true, expires: new Date(Date.now() + (2*3600*1000))})
+              .sendStatus(200);
+          }
+        });
+      }
+    });
+  };
+
+  const addProperty = (request, response) => {
+    response.send('Success with authentication');
+  };
+
+
   process.on('uncaughtException', function (err) {
     console.error(err);
     console.log("Node NOT Exiting...");
@@ -50,5 +108,7 @@ const getProperties = (request, response) => {
   module.exports = {
     getProperties,
     getPropertyById,
-    getPropertiesBySearch
+    getPropertiesBySearch,
+    addProperty,
+    authenticate
   }
