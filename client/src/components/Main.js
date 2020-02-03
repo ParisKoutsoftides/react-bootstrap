@@ -19,7 +19,7 @@ const Main =    () => {
       <Route exact path='/contact' component={Contact}></Route>
       <Route exact path='/properties' component={PropertiesViewAll}></Route>
       <Route exact path='/properties/:id' component={PropertiesViewSingle}></Route>
-      <Route exact path='/searchProperties/:minPrice&:maxPrice&:buildingType' component={SearchProperties}></Route>
+      <Route exact path='/searchProperties/:district&:minPrice&:maxPrice&:buildingType' component={SearchProperties}></Route>
       <Route component={NotFound} />
     </Switch>
   );

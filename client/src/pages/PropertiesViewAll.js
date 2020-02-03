@@ -36,8 +36,8 @@ componentDidMount() {
                           </Col>
                           <Col lg={true}>
                               <p>{x.title}</p>
-                              <p>{x.price}</p>
-                              <p>{x.county}</p>
+                              <p>€{x.price}</p>
+                              <p>{x.district}</p>
                           </Col>
                       </Row>
                   </Container>

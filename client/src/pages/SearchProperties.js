@@ -17,7 +17,15 @@ constructor(props) {
 
 componentDidMount() {
   console.log(this.props);
-  fetch('http://localhost:5000/searchProperties?'+ this.props.match.params.minPrice + '&' + this.props.match.params.maxPrice + '&' + this.props.match.params.buildingType)
+  if(isNaN(this.props.match.params.minPrice)) {
+    console.log("MIN PRICE IS NAN:::::")
+    this.props.match.params.minPrice = "minPrice=0";
+  }
+  if(isNaN(this.props.match.params.maxPrice)) {
+    console.log("MAX PRICE IS NAN:::::" + 2147483647)
+    this.props.match.params.maxPrice = "maxPrice=2147483646";
+  }
+  fetch('http://localhost:5000/searchProperties?'+ this.props.match.params.district + '&'+ this.props.match.params.minPrice + '&' + this.props.match.params.maxPrice + '&' + this.props.match.params.buildingType)
     .then(response => response.json())
     .then(data => this.setState({properties: data}));
 } 
@@ -37,7 +45,7 @@ componentDidMount() {
                           </Col>
                           <Col lg={true}>
                               <p>{x.title}</p>
-                              <p>{x.price}</p>
+                              <p>€{x.price}</p>
                               <p>{x.county}</p>
                           </Col>
                       </Row>
