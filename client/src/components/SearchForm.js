@@ -58,7 +58,7 @@ render(){
                 </Col>
             </Row>
         </Form.Group>
-        <Form.Group controlId="exampleForm.buildingTypeSelect">
+        <Form.Group controlId="searchForm.buildingTypeSelect">
             <Row>
                 <Col>
                     <Form.Control as="select" name="buildingType" value={buildingType} onChange={this.onChange}>

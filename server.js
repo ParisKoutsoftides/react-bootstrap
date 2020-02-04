@@ -11,9 +11,7 @@ const cookieParser = require('cookie-parser');
 // console.log that your server is up and running
 app.listen(port, () => console.log(`Listening on port ${port}`));
 
-// app.use(bodyParser.urlencoded({ extended: true })); 
-
-app.use(bodyParser.json()); 
+app.use(bodyParser.json({extended: true, limit: '10mb'}));
 
 app.use(cookieParser());
 
@@ -30,6 +28,8 @@ app.get('/properties/:id', db.getPropertyById);
 app.get('/searchProperties', db.getPropertiesBySearch);
 
 app.get('/addProperty', withAuth ,db.addProperty);
+
+app.post('/addProperty', withAuth ,db.addPropertyPost);
 
 app.post('/authenticate', db.authenticate);
 

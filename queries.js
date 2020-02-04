@@ -44,8 +44,6 @@ const getProperties = (request, response) => {
   };
 
 const _isCorrectPassword = function(password, hashedPassword,callback){
-  console.log("PASSOWRD IS:::" + password);
-  console.log("HASHED PASSWORD IS:::" + hashedPassword);
     bcrypt.compare(password, hashedPassword, function(err, same) {
       if (err) {
         callback(err);
@@ -57,7 +55,6 @@ const _isCorrectPassword = function(password, hashedPassword,callback){
 const authenticate = (req, res) => {
     const username = req.body.username;
     const password = req.body.password;
-    console.log("USERNAME IS:::" + username);
     pool.query('SELECT * FROM users WHERE username = $1;', [username], (err, results) => {
       if (err) {
         console.error(err);
@@ -99,6 +96,23 @@ const authenticate = (req, res) => {
   };
 
 
+  const addPropertyPost = (request, response) => {
+    const title = request.body.title;
+    const price = request.body.price;
+    const image = request.body.selectedFile;
+    const district = request.body.district;
+    const building_type = request.body.buildingType;
+    pool.query('INSERT INTO properties (title, price, image, district, building_type) VALUES ($1, $2, $3, $4, $5); ', [title, price, image, district, building_type], (error, results) => {
+      if (error) {
+        console.log(error);
+        response.json({error: 'Internal error please try again'});
+      } else {
+        response.sendStatus(200);
+      }
+    })
+
+  };
+
   process.on('uncaughtException', function (err) {
     console.error(err);
     console.log("Node NOT Exiting...");
@@ -110,5 +124,6 @@ const authenticate = (req, res) => {
     getPropertyById,
     getPropertiesBySearch,
     addProperty,
-    authenticate
+    authenticate,
+    addPropertyPost
   }
