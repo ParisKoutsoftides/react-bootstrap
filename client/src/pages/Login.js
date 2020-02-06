@@ -1,15 +1,18 @@
 import React, { Component } from 'react';
-
+import {UserContext} from '../contexts/UserContext.js'
 
 export default class Login extends Component {
-    constructor(props) {
-      super(props)
+
+    static contextType = UserContext; 
+    constructor() {
+      super()
       this.state = {
         username : '',
-        password: ''
+        password: '',
+
       };
+      
     }
-    
     
     handleInputChange = (event) => {
       const { value, name } = event.target;
@@ -17,8 +20,11 @@ export default class Login extends Component {
         [name]: value
       });
     }
+
     
     onSubmit = (event) => {
+        console.log("RUN:::::")
+        this.context.toggleLoggedIn();
         event.preventDefault();
         fetch('http://localhost:5000/authenticate', {
           method: 'POST',
@@ -68,3 +74,4 @@ export default class Login extends Component {
       );
     }
   }
+

@@ -11,7 +11,7 @@ const cookieParser = require('cookie-parser');
 // console.log that your server is up and running
 app.listen(port, () => console.log(`Listening on port ${port}`));
 
-app.use(bodyParser.json({extended: true, limit: '10mb'}));
+app.use(bodyParser.json({limit: '10mb'}));
 
 app.use(cookieParser());
 

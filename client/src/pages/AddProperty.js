@@ -37,13 +37,9 @@ class AddProperty extends Component {
         var filePromise = this.encodeImageFileAsURL(event.target.files[0]);
         filePromise.then(data => {this.setState({selectedFile: data.substring(23)})});
       }
-
-
-
     
     handleSubmit = (event) => {
         event.preventDefault();
-        console.log("THISS HERE::: " + this.state.selectedFile);
         fetch('http://localhost:5000/addProperty', {
           method: 'POST',
           body: JSON.stringify(this.state),

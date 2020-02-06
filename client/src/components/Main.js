@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {Component} from 'react';
 import { Switch, Route } from 'react-router-dom';
 
 import Home from '../pages/Home.js';
@@ -14,7 +14,8 @@ import withAuth from './withAuth'
 import NotFound from '../pages/Contact.js';
 import SearchProperties from '../pages/SearchProperties.js';
 
-const Main =    () => {
+class Main extends Component {
+  render() {
   return (
     <Switch>
       <Route exact path='/' component={Home}></Route>
@@ -28,6 +29,7 @@ const Main =    () => {
       <Route component={NotFound} />
     </Switch>
   );
+  }
 }
 
 export default Main;

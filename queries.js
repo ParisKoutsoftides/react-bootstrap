@@ -52,6 +52,7 @@ const _isCorrectPassword = function(password, hashedPassword,callback){
       }
     });
   }
+  
 const authenticate = (req, res) => {
     const username = req.body.username;
     const password = req.body.password;
