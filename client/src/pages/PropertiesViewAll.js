@@ -3,6 +3,7 @@ import Row from 'react-bootstrap/Row'
 import Col from 'react-bootstrap/Col';
 import Container from 'react-bootstrap/Container';
 import Image from 'react-bootstrap/Image';
+import Spinner from 'react-bootstrap/Spinner'
 import '../App.css';
 
 class PropertiesViewAll extends Component {
@@ -11,6 +12,7 @@ constructor(props) {
   super(props);
   this.state = {
     properties: [],
+    loading: true
   };
 }
 
@@ -18,16 +20,24 @@ constructor(props) {
 componentDidMount() {
   fetch('http://localhost:5000/properties')
     .then(response => response.json())
-    .then(data => this.setState({properties: data}));
+    .then(data => this.setState({properties: data, loading: false}));
 }
 
   render() {
-            console.log(this.state.properties);
-            const { properties } = this.state;
+            const { properties, loading } = this.state;
+            let loadingGreet;
+            if (loading) {
+              loadingGreet =<Container fluid={true} className="grayContainer testHeight">
+                              <Spinner animation="border" role="status">
+                                <span className="sr-only">Loading...</span>
+                                </Spinner>
+                            </Container> 
+            }
             return (
               <div>
               <h1>Properties</h1> 
-                <div>        
+                {loadingGreet}
+                <div>
                   {properties.map(x =>
                   <Container className="grayContainer marginBottom" key={x.property_id}>
                       <Row className="justify-content-md-center" >

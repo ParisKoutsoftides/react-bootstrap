@@ -25,7 +25,7 @@ class AppHeader extends Component {
         }
         return (
             <Navbar bg="light" expand="md" sticky="top" >
-            <Navbar.Brand href="#home">React-Bootstrap</Navbar.Brand>
+            <Navbar.Brand>React-Bootstrap</Navbar.Brand>
             <Navbar.Toggle aria-controls="basic-navbar-nav" />
             <Navbar.Collapse id="basic-navbar-nav">
                 <Nav className="mr-auto">
@@ -33,7 +33,6 @@ class AppHeader extends Component {
                     <Link className="nav-link" to="/properties">Properties</Link>
                     <Link className="nav-link" to="/contact">Contact</Link>
                     {adminMenu}
-
                 </Nav>
             </Navbar.Collapse>
             </Navbar>

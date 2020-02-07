@@ -23,7 +23,6 @@ export default class Login extends Component {
 
     
     onSubmit = (event) => {
-        console.log("RUN:::::")
         this.context.toggleLoggedIn();
         event.preventDefault();
         fetch('http://localhost:5000/authenticate', {
@@ -36,7 +35,6 @@ export default class Login extends Component {
         })
         .then(res => {
           if (res.status === 200) {
-            alert('Sucess!!');
             this.props.history.push('/');
           } else {
             const error = new Error(res.error);

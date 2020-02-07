@@ -14,7 +14,6 @@ class UserContextProvider extends Component {
     }
 
     render() {
-        console.log("HUHHHH::::::::")
         return(
             <UserContext.Provider value={{...this.state, toggleLoggedIn: this.toggleLoggedIn}}>
                 {this.props.children}
